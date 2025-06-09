@@ -28,7 +28,7 @@ config.use_dead_keys = false
 config.window_decorations = "RESIZE"
 config.scrollback_lines = 3000
 config.window_close_confirmation = "AlwaysPrompt"
-config.default_domain = 'WSL:Ubuntu'
+config.default_domain = 'WSL:Ubuntu-24.04'
 
 -- Dim inactive panes
 config.inactive_pane_hsb = {
@@ -38,11 +38,16 @@ config.inactive_pane_hsb = {
 
 -- Keys
 config.keys = {
-    {
-      key = 'n',
-      mods = 'SHIFT|CTRL',
-      action = wezterm.action.ToggleFullScreen,
-    },
+  {
+    key = 'T',
+    mods = 'CTRL|SHIFT',
+    action = wezterm.action.SpawnTab('DefaultDomain'),
+  },
+  {
+    key = 'n',
+    mods = 'SHIFT|CTRL',
+    action = wezterm.action.ToggleFullScreen,
+  },
 }
 
 -- Tab bar
@@ -83,6 +88,24 @@ wezterm.on("update-right-status", function(window, pane)
     { Text = " |" },
   }))
 end)
+
+-- Launch menu: WSL, PowerShell, CMD
+config.launch_menu = {
+  {
+    label = "WSL - Ubuntu",
+    domain = { DomainName = "WSL:Ubuntu-24.04" }
+  },
+  {
+    label = "PowerShell",
+    args = { "powershell.exe" },
+    domain = { DomainName = "local" }
+  },
+  {
+    label = "CMD",
+    args = { "cmd.exe" },
+    domain = { DomainName = "local" }
+  },
+}
 
 -- and finally, return the configuration to wezterm
 return config
